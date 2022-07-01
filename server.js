@@ -13,9 +13,9 @@ const PORT = process.env.PORT || 3001;
 
 // Set up sessions
 const sess = {
-  secret: 'Super secret secret',
-  resave: false,
-  saveUninitialized: false,
+    secret: 'Super secret secret',
+    resave: false,
+    saveUninitialized: false,
 };
 
 app.use(session(sess));
@@ -32,5 +32,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+    app.listen(PORT, () => console.log('Now listening'));
 });
