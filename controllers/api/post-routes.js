@@ -110,13 +110,28 @@ router.put('/:id', async (req, res) => {
             title: req.body.title,
             content: req.body.content,
         },
-        {
+            {
+                where: {
+                    id: req.params.id
+                }
+            });
+        if (dbPostData) res.status(201).json(dbPostData);
+        else res.status(500).json({ message: 'There was an error while updating the post' });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// DELETE post by id
+router.delete('/:id', async (req, res) => {
+    try {
+        const dbPostData = await Post.destroy({
             where: {
                 id: req.params.id
             }
         });
-        if (dbPostData) res.status(201).json(dbPostData);
-        else res.status(500).json({ message: 'There was an error while updating the post' });
+        if (dbPostData) res.status(200).json(dbPostData);
+        else res.status(404).json({ message: 'No post found with this id' });
     } catch (err) {
         res.status(500).json(err);
     }
