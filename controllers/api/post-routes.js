@@ -5,34 +5,19 @@ const { User, Post, Comment } = require('../../models');
 router.get('/', async (req, res) => {
     try {
         const dbPostData = await Post.findAll({
-            attributes: [
-                'id',
-                'title',
-                'content',
-                'created_at',
-            ],
+            attributes: ['id', 'title', 'content', 'created_at'],
             include: [
                 {
                     model: Comment,
-                    attributes: [
-                        'id',
-                        'text',
-                        'post_id',
-                        'user_id',
-                        'created_at'
-                    ],
+                    attributes: ['id', 'text', 'post_id', 'user_id', 'created_at'],
                     include: {
                         model: User,
-                        attributes: [
-                            'username'
-                        ]
+                        attributes: ['username']
                     }
                 },
                 {
                     model: User,
-                    attributes: [
-                        'username'
-                    ]
+                    attributes: ['username']
                 },
             ]
         });
@@ -47,37 +32,20 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const dbPostData = await Post.findOne({
-            where: {
-                id: req.params.id
-            },
-            attributes: [
-                'id',
-                'title',
-                'content',
-                'created_at',
-            ],
+            where: { id: req.params.id },
+            attributes: ['id', 'title', 'content', 'created_at'],
             include: [
                 {
                     model: Comment,
-                    attributes: [
-                        'id',
-                        'text',
-                        'post_id',
-                        'user_id',
-                        'created_at'
-                    ],
+                    attributes: ['id', 'text', 'post_id', 'user_id', 'created_at'],
                     include: {
                         model: User,
-                        attributes: [
-                            'username'
-                        ]
+                        attributes: ['username']
                     }
                 },
                 {
                     model: User,
-                    attributes: [
-                        'username'
-                    ]
+                    attributes: ['username']
                 },
             ]
         });
@@ -106,15 +74,13 @@ router.post('/', async (req, res) => {
 // UPDATE post by id
 router.put('/:id', async (req, res) => {
     try {
-        const dbPostData = await Post.update({
-            title: req.body.title,
-            content: req.body.content,
-        },
+        const dbPostData = await Post.update(
             {
-                where: {
-                    id: req.params.id
-                }
-            });
+                title: req.body.title,
+                content: req.body.content,
+            },
+            { where: { id: req.params.id } }
+        );
         if (dbPostData) res.status(201).json(dbPostData);
         else res.status(500).json({ message: 'There was an error while updating the post' });
     } catch (err) {
@@ -125,11 +91,7 @@ router.put('/:id', async (req, res) => {
 // DELETE post by id
 router.delete('/:id', async (req, res) => {
     try {
-        const dbPostData = await Post.destroy({
-            where: {
-                id: req.params.id
-            }
-        });
+        const dbPostData = await Post.destroy({ where: { id: req.params.id } });
         if (dbPostData) res.status(200).json(dbPostData);
         else res.status(404).json({ message: 'No post found with this id' });
     } catch (err) {

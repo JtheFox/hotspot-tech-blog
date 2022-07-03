@@ -5,34 +5,18 @@ const { User, Post, Comment } = require('../../models');
 router.get('/', async (req, res) => {
     try {
         const dbUserData = await User.findAll({
-            attributes: {
-                exclude: [
-                    'email',
-                    'password'
-                ]
-            },
+            attributes: { exclude: ['email', 'password'] },
             include: [
                 {
                     model: Post,
-                    attributes: [
-                        'id',
-                        'title',
-                        'content',
-                        'created_at'
-                    ]
+                    attributes: ['id', 'title', 'content', 'created_at']
                 },
                 {
                     model: Comment,
-                    attributes: [
-                        'id',
-                        'text',
-                        'created_at'
-                    ],
+                    attributes: ['id', 'text', 'created_at'],
                     include: {
                         model: Post,
-                        attributes: [
-                            'title'
-                        ]
+                        attributes: ['title']
                     }
                 }
             ]
@@ -49,37 +33,19 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const dbUserData = await User.findOne({
-            attributes: {
-                exclude: [
-                    'email',
-                    'password'
-                ]
-            },
-            where: {
-                id: req.params.id
-            },
+            attributes: { exclude: ['email', 'password'] },
+            where: { id: req.params.id },
             include: [
                 {
                     model: Post,
-                    attributes: [
-                        'id',
-                        'title',
-                        'content',
-                        'created_at'
-                    ]
+                    attributes: ['id', 'title', 'content', 'created_at']
                 },
                 {
                     model: Comment,
-                    attributes: [
-                        'id', 
-                        'text', 
-                        'created_at'
-                    ],
+                    attributes: ['id', 'text', 'created_at'],
                     include: {
                         model: Post,
-                        attributes: [
-                            'title'
-                        ]
+                        attributes: ['title']
                     }
                 }
             ]
@@ -112,9 +78,7 @@ router.post('/', async (req, res) => {
 router.get('/login', async (req, res) => {
     try {
         const dbUserData = await User.findOne({
-            where: {
-                email: req.body.email,
-            },
+            where: { email: req.body.email, },
         });
 
         if (!dbUserData) {
@@ -130,10 +94,7 @@ router.get('/login', async (req, res) => {
 
         req.session.save(() => {
             req.session.loggedIn = true;
-            console.log(
-                'User Logged In',
-                req.session.cookie
-            );
+            console.log('User Logged In', req.session.cookie);
             res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
         });
     } catch (err) {
