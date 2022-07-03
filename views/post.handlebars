@@ -1,0 +1,11 @@
+<div class="card w-75 my-3">
+    <div class="card-title d-flex justify-content-between px-2">
+        <h2>{{title}}</h2>
+        <h3>Posted by {{user.username}} at {{created_at}}</h3>
+    </div>
+    <div class="card-body">{{content}}</div>
+</div>
+<h3>Comments</h3>
+{{#each comments as |comment|}}
+{{> comment-details}}
+{{/each}}
