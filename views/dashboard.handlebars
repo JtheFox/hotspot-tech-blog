@@ -1,11 +1,16 @@
-{{#each posts as |post|}}
-<div class="card w-75 my-3">
-    <div class="card-title d-flex justify-content-between px-2 h4">
-        <a href="/post/edit/{{id}}">
-            <p>{{post.title}}</p>
-        </a>
-        <p>{{created_at}}</p>
+{{#if posts.length}}
+    {{#each posts as |post|}}
+    <div class="card w-75 my-3">
+        <div class="card-title d-flex justify-content-between px-2 h4">
+            <a href="/post/{{id}}">{{post.title}}</a>
+            <div class="post-actions">
+                <a href="/post/edit/{{id}}">Edit</a>
+                <button class="btn-danger" id="deletePost" data-id="{{id}}">Delete</button>
+            </div>
+        </div>
+        <div class="card-body">{{content}}</div>
     </div>
-    <div class="card-body">{{content}}</div>
-</div>
-{{/each}}
+    {{/each}}
+{{else}}
+    <h5>You do not currently have any posts.</h5>
+{{/if}}
