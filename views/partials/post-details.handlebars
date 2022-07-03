@@ -1,7 +1,9 @@
 <div class="card w-75 my-3">
-    <div class="card-title d-flex justify-content-between px-2 h4">
-        <p>{{title}}</p>
-        <p>Posted By {{user.username}}</p>
-    </div>
-    <div class="card-body">{{content}}</div>
+    <a href="/post/{{id}}">
+        <div class="card-title d-flex justify-content-between px-2 h4">
+            <p>{{title}}</p>
+            <p>Posted By {{user.username}}</p>
+        </div>
+        <div class="card-body">{{content}}</div>
+    </a>
 </div>
