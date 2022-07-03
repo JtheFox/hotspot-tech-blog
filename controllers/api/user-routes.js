@@ -1,24 +1,38 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Post, Comment } = require('../../models');
 
 // GET all users
 router.get('/', async (req, res) => {
     try {
         const dbUserData = await User.findAll({
             attributes: {
-                exclude: ['password']
+                exclude: [
+                    'email',
+                    'password'
+                ]
             },
             include: [
                 {
                     model: Post,
-                    attributes: ['id', 'title', 'post_content', 'created_at']
+                    attributes: [
+                        'id',
+                        'title',
+                        'content',
+                        'created_at'
+                    ]
                 },
                 {
                     model: Comment,
-                    attributes: ['id', 'comment_text', 'created_at'],
+                    attributes: [
+                        'id',
+                        'text',
+                        'created_at'
+                    ],
                     include: {
                         model: Post,
-                        attributes: ['title']
+                        attributes: [
+                            'title'
+                        ]
                     }
                 }
             ]
@@ -26,6 +40,7 @@ router.get('/', async (req, res) => {
         if (dbUserData) res.status(200).json(dbUserData);
         else res.status(404).json({ message: 'No users found' });
     } catch (err) {
+        console.log(err)
         res.status(500).json(err);
     }
 });
@@ -35,7 +50,10 @@ router.get('/:id', async (req, res) => {
     try {
         const dbUserData = await User.findOne({
             attributes: {
-                exclude: ['password']
+                exclude: [
+                    'email',
+                    'password'
+                ]
             },
             where: {
                 id: req.params.id
@@ -43,14 +61,25 @@ router.get('/:id', async (req, res) => {
             include: [
                 {
                     model: Post,
-                    attributes: ['id', 'title', 'post_content', 'created_at']
+                    attributes: [
+                        'id',
+                        'title',
+                        'content',
+                        'created_at'
+                    ]
                 },
                 {
                     model: Comment,
-                    attributes: ['id', 'comment_text', 'created_at'],
+                    attributes: [
+                        'id', 
+                        'text', 
+                        'created_at'
+                    ],
                     include: {
                         model: Post,
-                        attributes: ['title']
+                        attributes: [
+                            'title'
+                        ]
                     }
                 }
             ]
