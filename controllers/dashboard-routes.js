@@ -20,11 +20,45 @@ router.get('/', async (req, res) => {
 });
 
 // GET create post page
-router.get('/post/create', async (req, res) => {
-    
+router.get('/post', async (req, res) => {
+    const post = { title: '', content: '' }
+    res.render('edit-post', { post, newPost: true });
 });
 
-// UPDATE post by id
+// CREATE new post
+router.post('/post', async (req, res) => {
+    try {
+        const dbPostData = await Post.create({
+            title: req.body.title,
+            content: req.body.content,
+            user_id: req.session.user_id
+        });
+        if (dbPostData) res.status(201).json({id: dbPostData.id});
+        else res.status(500).json({ message: 'There was an error while creating the post' });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// GET edit post page by id
+router.get('/post/:id', async (req, res) => {
+    try {
+        const dbPostData = await Post.findOne({
+            where: { id: req.params.id },
+            attributes: ['title', 'content']
+        });
+        if (!dbPostData) {
+            res.status(404).json({ message: 'Post not found with this id' });
+            return;
+        }
+        const post = dbPostData.get({ plain: true });
+        res.render('edit-post', { post, newPost: false });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// UPDATE one post
 router.put('/post/:id', async (req, res) => {
     try {
         const dbPostData = await Post.update(
@@ -34,14 +68,14 @@ router.put('/post/:id', async (req, res) => {
             },
             { where: { id: req.params.id } }
         );
-        if (dbPostData) res.status(201).json(dbPostData);
+        if (dbPostData) res.status(201).json({id: dbPostData.id});
         else res.status(500).json({ message: 'There was an error while updating the post' });
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-// DELETE post by id
+// DELETE one post
 router.delete('/post/:id', async (req, res) => {
     try {
         const dbPostData = await Post.destroy({ where: { id: req.params.id } });

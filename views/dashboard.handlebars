@@ -1,16 +1,15 @@
-<button class="btn btn-success w-25 mb-4 text-center" onclick="document.location.replace('/dashboard/post/create')"><h4>Create Post</h4></button>
+<button class="btn btn-success w-25 mb-4 text-center" onclick="document.location.replace('/dashboard/post')"><h4>Create Post</h4></button>
 
 {{#if posts.length}}
     {{#each posts as |post|}}
     <div class="card w-75 my-3">
         <div class="card-title d-flex justify-content-between px-2 h4">
             <a href="/post/{{id}}">{{post.title}}</a>
-            <a href="/post/edit/{{id}}">Edit</a>
+            <a href="/dashboard/post/{{id}}">Edit</a>
         </div>
-        <div class="card-body">{{content}}</div><a href="/post/edit/{{id}}">Edit</a>
+        <div class="card-body">{{content}}</div>
     </div>
     {{/each}}
 {{else}}
     <h4>You do not currently have any posts.</h4>
 {{/if}}
-<script src="./js/dashboard.js"></script>
