@@ -24,7 +24,7 @@ const createPostHandler = async (event) => {
     });
 
     if (response.ok) {
-        const newPostData = response.json();
+        const newPostData = await response.json();
         document.location.replace(`/post/${newPostData.id}`);
     } else alert('Failed to create post.');
 }
@@ -48,7 +48,7 @@ const updatePostHandler = async (event) => {
     });
 
     if (response.ok) {
-        const updatedPostData = response.json();
+        const updatedPostData = await response.json();
         document.location.replace(`/post/${updatedPostData.id}`);
     } else alert('Failed to update post.');
 }

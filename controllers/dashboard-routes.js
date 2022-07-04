@@ -33,7 +33,8 @@ router.post('/post', async (req, res) => {
             content: req.body.content,
             user_id: req.session.user_id
         });
-        if (dbPostData) res.status(201).json({id: dbPostData.id});
+        const post = dbPostData.get({ plain: true });
+        if (dbPostData) res.status(201).json({ id: post.id });
         else res.status(500).json({ message: 'There was an error while creating the post' });
     } catch (err) {
         res.status(500).json(err);
@@ -68,7 +69,7 @@ router.put('/post/:id', async (req, res) => {
             },
             { where: { id: req.params.id } }
         );
-        if (dbPostData) res.status(201).json({id: dbPostData.id});
+        if (dbPostData) res.status(201).json({ id: req.params.id });
         else res.status(500).json({ message: 'There was an error while updating the post' });
     } catch (err) {
         res.status(500).json(err);

@@ -38,6 +38,10 @@ router.get('/post/:id', async (req, res) => {
                     }
                 ]
             });
+            if (!dbPostData) {
+                res.status(404).json({ message: 'No post found with this id' });
+                return;
+            }
             const post = dbPostData.get({ plain: true });
             res.render('view-post', { post });
         } catch (err) {
