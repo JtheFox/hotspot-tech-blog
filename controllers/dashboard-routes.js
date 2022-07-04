@@ -5,6 +5,7 @@ const { User, Post } = require('../models');
 router.get('/', async (req, res) => {
     try {
         const dbPostData = await Post.findAll({
+            where: { user_id: req.session.user_id },
             attributes: ['id', 'title', 'content', 'created_at'],
             include: [{
                 model: User,
