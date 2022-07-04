@@ -1,4 +1,4 @@
-# [Hotspot Tech Blog]()
+# [Hotspot Tech Blog](https://hotspot-blog.herokuapp.com/)
 
 ## Table of Contents
 1. [Description](#description)
@@ -10,7 +10,7 @@
 A Wordpress-style blog built using Model View Controller paradigm with MySQL, Express, Handlebars, and Bootstrap.
 
 ## Mock Up
-[![Demonstration Thumbnail](assets/demo-thumbnail.png)](https://streamable.com/s2sbxd)
+![Mock up of website](/assets/mockup.gif)
 
 ## Installation
 - Make sure you have [NodeJS](https://nodejs.org/en/download/) installed
@@ -33,4 +33,5 @@ npm start
 - Preview the site on http://localhost:3001/ in your browser
 
 ## Resources
-- [Online Repository](https://github.com/JtheFox/ecommerce-backen
+- [Online Repository](https://github.com/JtheFox/hotspot-tech-blog)
+- [Live Site](https://hotspot-blog.herokuapp.com/)
