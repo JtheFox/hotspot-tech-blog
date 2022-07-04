@@ -11,7 +11,8 @@ router.get('/', withAuth, async (req, res) => {
             include: [{
                 model: User,
                 attributes: ['username']
-            }]
+            }],
+            order: [['updatedAt', 'DESC']]
         });
         const posts = dbPostData.map((post) => post.get({ plain: true }));
         res.render('dashboard', { posts, loggedIn: req.session.loggedIn });
