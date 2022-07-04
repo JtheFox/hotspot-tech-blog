@@ -23,10 +23,8 @@ const createPostHandler = async (event) => {
         headers: { 'Content-Type': 'application/json' },
     });
 
-    if (response.ok) {
-        const newPostData = await response.json();
-        document.location.replace(`/post/${newPostData.id}`);
-    } else alert('Failed to create post.');
+    if (response.ok) document.location.replace(`/dashboard`);
+    else alert('Failed to create post.');
 }
 
 const cancelPostHandler = async (event) => {
@@ -47,10 +45,8 @@ const updatePostHandler = async (event) => {
         headers: { 'Content-Type': 'application/json' },
     });
 
-    if (response.ok) {
-        const updatedPostData = await response.json();
-        document.location.replace(`/post/${updatedPostData.id}`);
-    } else alert('Failed to update post.');
+    if (response.ok) document.location.replace(`/dashboard`);
+    else alert('Failed to update post.');
 }
 
 const deletePostHandler = async (event) => {
