@@ -6,6 +6,11 @@
     <div class="card-body">{{post.content}}</div>
 </div>
 <h3>Comments</h3>
+<div class="comment-box d-flex flex-column w-50 mb-4 align-items-center">
+    <textarea class="w-50 mb-2" name="text" id="text" cols="30" rows="2"></textarea>
+    <button class="btn btn-success w-25" id="postComment">Submit</button>
+</div>
 {{#each post.comments as |comment|}}
 {{> comment-details}}
 {{/each}}
+<script src="../js/commentPost.js"></script>
