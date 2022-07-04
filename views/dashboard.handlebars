@@ -1,4 +1,4 @@
-<button class="btn-primary w-50 text-center" id="createPost">Create Post</button>
+<button class="btn btn-success w-25 mb-4 text-center" onclick="document.location.replace('/dashboard/post/create')"><h4>Create Post</h4></button>
 
 {{#if posts.length}}
     {{#each posts as |post|}}
@@ -7,10 +7,10 @@
             <a href="/post/{{id}}">{{post.title}}</a>
             <a href="/post/edit/{{id}}">Edit</a>
         </div>
-        <div class="card-body">{{content}}</div>
+        <div class="card-body">{{content}}</div><a href="/post/edit/{{id}}">Edit</a>
     </div>
     {{/each}}
 {{else}}
-    <h5>You do not currently have any posts.</h5>
+    <h4>You do not currently have any posts.</h4>
 {{/if}}
 <script src="./js/dashboard.js"></script>
