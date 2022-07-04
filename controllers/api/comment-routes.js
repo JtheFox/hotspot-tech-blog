@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // CREATE new comment
-router.post('/', async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
     try {
         const dbCommentData = await Comment.create({
             text: req.body.text,
@@ -11,17 +12,6 @@ router.post('/', async (req, res) => {
         });
         if (dbCommentData) res.status(201).json(dbCommentData);
         else res.status(500).json({ message: 'There was an error while creating the comment' });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
-// DELETE comment by id
-router.delete('/:id', async (req, res) => {
-    try {
-        const dbCommentData = await Comment.destroy({ where: { id: req.params.id } });
-        if (dbCommentData) res.status(200).json(dbCommentData);
-        else res.status(404).json({ message: 'No comment found with this id' });
     } catch (err) {
         res.status(500).json(err);
     }
