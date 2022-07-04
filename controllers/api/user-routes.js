@@ -1,34 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 
-// GET all users
-router.get('/', async (req, res) => {
-    try {
-        const dbUserData = await User.findAll({
-            attributes: { exclude: ['email', 'password'] },
-            include: [
-                {
-                    model: Post,
-                    attributes: ['id', 'title', 'content', 'created_at']
-                },
-                {
-                    model: Comment,
-                    attributes: ['id', 'text', 'created_at'],
-                    include: {
-                        model: Post,
-                        attributes: ['title']
-                    }
-                }
-            ]
-        });
-        if (dbUserData) res.status(200).json(dbUserData);
-        else res.status(404).json({ message: 'No users found' });
-    } catch (err) {
-        console.log(err)
-        res.status(500).json(err);
-    }
-});
-
 // GET user by id
 router.get('/:id', async (req, res) => {
     try {
