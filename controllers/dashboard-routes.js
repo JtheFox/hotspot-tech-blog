@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { User, Post } = require('../models');
+const withAuth = require('../utils/auth');
 
 // GET all posts for a user
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     try {
         const dbPostData = await Post.findAll({
             where: { user_id: req.session.user_id },
@@ -20,13 +21,13 @@ router.get('/', async (req, res) => {
 });
 
 // GET create post page
-router.get('/post', async (req, res) => {
+router.get('/post', withAuth, async (req, res) => {
     const post = { title: '', content: '' }
     res.render('edit-post', { post, newPost: true });
 });
 
 // CREATE new post
-router.post('/post', async (req, res) => {
+router.post('/post', withAuth, async (req, res) => {
     try {
         const dbPostData = await Post.create({
             title: req.body.title,
@@ -42,7 +43,7 @@ router.post('/post', async (req, res) => {
 });
 
 // GET edit post page by id
-router.get('/post/:id', async (req, res) => {
+router.get('/post/:id', withAuth, async (req, res) => {
     try {
         const dbPostData = await Post.findOne({
             where: { id: req.params.id },
@@ -60,7 +61,7 @@ router.get('/post/:id', async (req, res) => {
 });
 
 // UPDATE one post
-router.put('/post/:id', async (req, res) => {
+router.put('/post/:id', withAuth, async (req, res) => {
     try {
         const dbPostData = await Post.update(
             {
@@ -77,7 +78,7 @@ router.put('/post/:id', async (req, res) => {
 });
 
 // DELETE one post
-router.delete('/post/:id', async (req, res) => {
+router.delete('/post/:id', withAuth, async (req, res) => {
     try {
         const dbPostData = await Post.destroy({ where: { id: req.params.id } });
         if (dbPostData) res.status(200).json(dbPostData);
