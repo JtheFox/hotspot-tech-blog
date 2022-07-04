@@ -26,7 +26,7 @@ router.get('/', withAuth, async (req, res) => {
 // GET create post page
 router.get('/post', withAuth, async (req, res) => {
     const post = { title: '', content: '' }
-    res.render('edit-post', { post, newPost: true });
+    res.render('edit-post', { post, newPost: true, loggedIn: req.session.loggedIn });
 });
 
 // CREATE new post
@@ -57,7 +57,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
             return;
         }
         const post = dbPostData.get({ plain: true });
-        res.render('edit-post', { post, newPost: false });
+        res.render('edit-post', { post, newPost: false, loggedIn: req.session.loggedIn });
     } catch (err) {
         res.status(500).json(err);
     }
