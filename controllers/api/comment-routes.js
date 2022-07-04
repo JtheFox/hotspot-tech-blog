@@ -1,17 +1,6 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
 
-// GET all comments
-router.get('/', async (req, res) => {
-    try {
-        const dbCommentData = await Comment.findAll({});
-        if (dbCommentData) res.status(200).json(dbCommentData);
-        else res.status(404).json({ message: 'No comments found' });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
 // CREATE new comment
 router.post('/', async (req, res) => {
     try {
