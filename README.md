@@ -27,6 +27,7 @@ DB_PASSWORD='your_mysql_password'
 ```
 - In your terminal, run
 ```bash
+npm i
 npm run seed
 npm start
 ```
